@@ -80,12 +80,16 @@ def call_agent_image_analyzer(image : Image.Image, location : str):
         tools=tools,
     )
 
+    final_response = ""
     for chunk in client.models.generate_content_stream(
         model=model,
         contents=contents,
         config=generate_content_config,
     ):
         print(chunk.text, end="")
+        final_response += chunk.text
+
+    return final_response
 
 
 
